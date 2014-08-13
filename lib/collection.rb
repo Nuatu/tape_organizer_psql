@@ -9,7 +9,6 @@ class Collection
   def initialize(attributes)
     @name = attributes['name']
     @id = attributes['id']
-    # @tape_id = attributes['tape_id']
   end
 
   # def self.all
