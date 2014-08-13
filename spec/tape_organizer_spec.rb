@@ -38,6 +38,15 @@ describe 'Collection' do
     end
   end
 
+  describe "edit_name" do
+    it "edits collection name" do
+      test_collection = Collection.new(ATTRIBUTES)
+      test_collection.save
+      test_collection.edit_name("Mary")
+      expect(test_collection.name).to eq "Mary"
+    end
+  end
+
 end
 
 #

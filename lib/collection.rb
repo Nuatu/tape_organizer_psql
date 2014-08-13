@@ -23,19 +23,15 @@ class Collection
   def save
     @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
   end
-  
+
   def ==(another_collection)
     @name == another_collection.name
   end
-#
-#   def self.all
-#     collections = []
-#     results = DB.exec("SELECT * FROM collections;")
-#     results.each do |result|
-#       collections << Collection.new(result)
-#     end
-#     collections
-#   end
+
+  def edit_name(new_name)
+    DB.exec("UPDATE collections SET name = '#{new_name}' WHERE id = #{@id};")
+    @name = new_name
+  end
 #
 #   def add_tape(new_artist,new_title,new_year)
 #     tape_id = DB.exec("INSERT INTO tapes(artist,title,year) VALUES ('#{new_artist}','#{new_title}','#{new_year}') RETURNING id;").first['id'].to_i
