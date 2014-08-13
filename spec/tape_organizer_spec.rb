@@ -28,6 +28,15 @@ describe 'Collection' do
     end
   end
 
+  describe "==" do
+    it "sets two objects as equal if their values are equal" do
+      test_collection = Collection.new(ATTRIBUTES)
+      test_collection.save
+      test_collection1 = Collection.new(ATTRIBUTES)
+      test_collection1.save
+      expect(test_collection).to eq test_collection1
+    end
+  end
 
 end
 
