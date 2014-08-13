@@ -9,13 +9,13 @@ describe 'Collection' do
     end
   end
 
-  # describe "save" do
-  #   it "saves a collection in the database" do
-  #     test_category = Collection.new(ATTRIBUTES)
-  #     test_category.save
-  #     expect(Collection.all).to eq [test_category]
-  #   end
-  # end
+  describe "save" do
+    it "saves a collection in the database" do
+      test_category = Collection.new(ATTRIBUTES)
+      test_category.save
+      expect(Collection.all).to eq [test_category]
+    end
+  end
   #
   # describe ".all" do
   #   it "returns all collections" do

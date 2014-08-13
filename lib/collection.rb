@@ -20,9 +20,9 @@ class Collection
   #   output
   # end
   #
-  # def save
-  #   @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
-  # end
+  def save
+    @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
+  end
   #
   # def ==(another_collection)
   #   @name == another_collection.name
