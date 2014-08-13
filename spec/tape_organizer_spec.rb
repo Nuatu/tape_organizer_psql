@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'Collection' do
+
   describe "initialize" do
     it "initializes an category with a hash" do
       test_collection = Collection.new(ATTRIBUTES)
@@ -16,14 +17,16 @@ describe 'Collection' do
       expect(Collection.all).to eq [test_category]
     end
   end
-  #
-  # describe ".all" do
-  #   it "returns all collections" do
-  #     test_collection = Collection.new(ATTRIBUTES)
-  #     test_collection.save
-  #     expect(Collection.all).to eq [test_collection]
-  #   end
-  # end
+
+  describe ".all" do
+    it "returns all collections" do
+      test_collection = Collection.new(ATTRIBUTES)
+      test_collection.save
+      test_collection1 = Collection.new(ATTRIBUTES)
+      test_collection1.save
+      expect(Collection.all).to eq [test_collection, test_collection]
+    end
+  end
 
 
 end
