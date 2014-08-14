@@ -38,15 +38,15 @@ describe 'Artist' do
     end
   end
 
-  # describe "edit_name" do
-  #   it "edits artist name" do
-  #     test_artist = Artist.new(ATTRIBUTES)
-  #     test_artist.save
-  #     test_artist.edit_name("Mary")
-  #     expect(test_artist.name).to eq "Mary"
-  #   end
-  # end
-  #
+  describe "edit_name" do
+    it "edits artist name" do
+      test_artist = Artist.new(ATTRIBUTES)
+      test_artist.save
+      test_artist.edit_name("Mary")
+      expect(test_artist.name).to eq "Mary"
+    end
+  end
+
   # describe "delete" do
   #   it "deletes a artist from the database" do
   #     test_artist = Artist.new(ATTRIBUTES)
