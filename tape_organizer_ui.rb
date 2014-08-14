@@ -7,7 +7,7 @@ def main_menu
   loop do
     #Main menu block
     system "clear"
-    
+
     puts "
     T A P E  C O L L E C T I O N
     ____________________________
@@ -24,7 +24,7 @@ def main_menu
  `.___/ /====/ /=//=/ /====/____/
       `--------------------'
 "
-    puts "Press '1' CREATE a new Collection"
+    puts "Press '1' CREATE Collection"
     puts "Press '2' EXISTING Collection(s)"
     puts "Press 'x' Exit Program"
     input = gets.chomp

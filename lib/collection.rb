@@ -32,6 +32,10 @@ class Collection
     DB.exec("UPDATE collections SET name = '#{new_name}' WHERE id = #{@id};")
     @name = new_name
   end
+
+  def delete
+    DB.exec("DELETE FROM collections WHERE id = #{@id};")
+  end
 #
 #   def add_tape(new_artist,new_title,new_year)
 #     tape_id = DB.exec("INSERT INTO tapes(artist,title,year) VALUES ('#{new_artist}','#{new_title}','#{new_year}') RETURNING id;").first['id'].to_i

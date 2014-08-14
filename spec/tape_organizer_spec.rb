@@ -47,6 +47,14 @@ describe 'Collection' do
     end
   end
 
+  describe "delete" do
+    it "deletes a collection from the database" do
+      test_category = Collection.new(ATTRIBUTES)
+      test_category.save
+      test_category.delete
+      expect(Collection.all).to eq []
+    end
+  end
 end
 
 #
