@@ -12,6 +12,10 @@ describe 'Tape' do
 
   describe "save" do
     it "saves a tape in the database" do
+      # test_category = Collection.new(ATTRIBUTES)
+      # test_category.save
+      # test_artist = Artist.new(ATTRIBUTES)
+      # test_artist.save
       test_tape = Tape.new(ATTRIBUTES)
       test_tape.save
       expect(Tape.all).to eq [test_tape]

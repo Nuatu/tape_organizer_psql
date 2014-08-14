@@ -5,7 +5,7 @@ require 'tape'
 require 'artist'
 require 'pry'
 
-ATTRIBUTES = {'name' => 'Nuatu', 'title' => 'Notorious', 'year' => 2012}
+ATTRIBUTES = {'name' => 'Nuatu', 'title' => 'Notorious', 'year' => '2012', 'collection_id' => '1', 'artist_id' => '1'}
 
 DB = PG.connect({:dbname => 'tape_organizer_psql_test'})
 
