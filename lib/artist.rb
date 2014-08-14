@@ -19,9 +19,9 @@ class Artist
   #   output
   # end
   #
-  # def save
-  #   @id = DB.exec("INSERT INTO artists(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
-  # end
+  def save
+    @id = DB.exec("INSERT INTO artists(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
+  end
   #
   # def ==(another_artist)
   #   @name == another_artist.name
