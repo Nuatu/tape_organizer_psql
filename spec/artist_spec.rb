@@ -47,12 +47,12 @@ describe 'Artist' do
     end
   end
 
-  # describe "delete" do
-  #   it "deletes a artist from the database" do
-  #     test_artist = Artist.new(ATTRIBUTES)
-  #     test_artist.save
-  #     test_artist.delete
-  #     expect(Artist.all).to eq []
-  #   end
-  # end
+  describe "delete" do
+    it "deletes a artist from the database" do
+      test_artist = Artist.new(ATTRIBUTES)
+      test_artist.save
+      test_artist.delete
+      expect(Artist.all).to eq []
+    end
+  end
 end

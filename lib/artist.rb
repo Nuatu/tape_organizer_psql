@@ -32,8 +32,8 @@ class Artist
     @name = new_name
   end
 
-  # def delete
-  #   DB.exec("DELETE FROM artists WHERE id = #{@id};")
-  # end
+  def delete
+    DB.exec("DELETE FROM artists WHERE id = #{@id};")
+  end
 
 end
