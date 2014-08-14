@@ -10,15 +10,15 @@ class Artist
     @id = attributes['id']
   end
 
-  # def self.all
-  #   output = []
-  #   results = DB.exec("SELECT * FROM artists;")
-  #   results.each do |artist|
-  #     output << Artist.new(artist)
-  #   end
-  #   output
-  # end
-  #
+  def self.all
+    output = []
+    results = DB.exec("SELECT * FROM artists;")
+    results.each do |artist|
+      output << Artist.new(artist)
+    end
+    output
+  end
+
   def save
     @id = DB.exec("INSERT INTO artists(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
   end
