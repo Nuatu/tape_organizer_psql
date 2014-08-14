@@ -22,11 +22,11 @@ class Artist
   def save
     @id = DB.exec("INSERT INTO artists(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
   end
-  #
-  # def ==(another_artist)
-  #   @name == another_artist.name
-  # end
-  #
+  
+  def ==(another_artist)
+    @name == another_artist.name
+  end
+
   # def edit_name(new_name)
   #   DB.exec("UPDATE artists SET name = '#{new_name}' WHERE id = #{@id};")
   #   @name = new_name

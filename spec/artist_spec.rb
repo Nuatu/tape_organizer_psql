@@ -27,17 +27,17 @@ describe 'Artist' do
       expect(Artist.all).to eq [test_artist, test_artist1]
     end
   end
-  #
-  # describe "==" do
-  #   it "sets two objects as equal if their values are equal" do
-  #     test_artist = Artist.new(ATTRIBUTES)
-  #     test_artist.save
-  #     test_artist1 = Artist.new(ATTRIBUTES)
-  #     test_artist1.save
-  #     expect(test_artist).to eq test_artist1
-  #   end
-  # end
-  #
+
+  describe "==" do
+    it "sets two objects as equal if their values are equal" do
+      test_artist = Artist.new(ATTRIBUTES)
+      test_artist.save
+      test_artist1 = Artist.new(ATTRIBUTES)
+      test_artist1.save
+      expect(test_artist).to eq test_artist1
+    end
+  end
+
   # describe "edit_name" do
   #   it "edits artist name" do
   #     test_artist = Artist.new(ATTRIBUTES)
