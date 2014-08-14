@@ -10,20 +10,19 @@ class Tape
     @year = attributes['year']
     @id = attributes['id']
   end
-#
-#
-#   def self.all
-#     output = []
-#     results = DB.exec("SELECT * FROM collections;")
-#     results.each do |result|
-#       output << Collection.new(result)
-#     end
-#     output
-#   end
-#
-#   def save
-#     @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
-#   end
+
+  def self.all
+    output = []
+    results = DB.exec("SELECT * FROM collections;")
+    results.each do |result|
+      output << Collection.new(result)
+    end
+    output
+  end
+
+  def save
+    @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
+  end
 #
 #   def ==(another_collection)
 #     @name == another_collection.name

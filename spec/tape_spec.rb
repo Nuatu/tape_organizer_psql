@@ -9,24 +9,24 @@ describe 'Tape' do
       expect(test_artist.title).to eq 'Notorious'
     end
   end
-  #
-  # describe "save" do
-  #   it "saves a tape in the database" do
-  #     test_tape = Tape.new(ATTRIBUTES)
-  #     test_tape.save
-  #     expect(Tape.all).to eq [test_tape]
-  #   end
-  # end
-  #
-  # describe ".all" do
-  #   it "returns all tapes" do
-  #     test_tape = Tape.new(ATTRIBUTES)
-  #     test_tape.save
-  #     test_tape1 = Tape.new(ATTRIBUTES)
-  #     test_tape1.save
-  #     expect(Tape.all).to eq [test_tape, test_tape1]
-  #   end
-  # end
+
+  describe "save" do
+    it "saves a tape in the database" do
+      test_tape = Tape.new(ATTRIBUTES)
+      test_tape.save
+      expect(Tape.all).to eq [test_tape]
+    end
+  end
+
+  describe ".all" do
+    it "returns all tapes" do
+      test_tape = Tape.new(ATTRIBUTES)
+      test_tape.save
+      test_tape1 = Tape.new(ATTRIBUTES)
+      test_tape1.save
+      expect(Tape.all).to eq [test_tape, test_tape1]
+    end
+  end
   #
   # describe "==" do
   #   it "sets two objects as equal if their values are equal" do
