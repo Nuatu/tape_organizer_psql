@@ -1,11 +1,11 @@
 Tape Organizer
 ==============
 
-by [Nuatu Tseggai] (https://github.com/nuatu) August 11, 2014
+by [Nuatu Tseggai] (https://github.com/nuatu) August 13, 2014
 _______________
 
 ###About
-Command line Ruby app for managing cassete tape collections.
+Command line Ruby / Postgres app for managing cassete tape collections.
 <ul>
 <li>users can create and manage multiple collections.</li>
 
