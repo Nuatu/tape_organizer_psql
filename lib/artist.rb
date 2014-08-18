@@ -19,13 +19,13 @@ class Artist
     output
   end
 
-  def self.exist? (new_name)
+  def self.exist? (new_artist_name)
     results = DB.exec("SELECT name FROM artists;")
     results1 = []
     results.each do |x|
       results1 << x['name']
     end
-    results1.include? new_name
+    results1.include? new_artist_name
   end
 
   def save

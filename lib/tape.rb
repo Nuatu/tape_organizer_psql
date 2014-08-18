@@ -21,20 +21,20 @@ class Tape
   end
 
   def save
-    @id = DB.exec("INSERT INTO tapes (collection_id, artist_id, title, year) VALUES (#{@collection_id}, #{@artist_id}, '#{@title}', '#{year}') RETURNING id;").first['id'].to_i
+    @id = DB.exec("INSERT INTO tapes (collection_id, artist_id, title, year) VALUES (#{@collection_id}, #{@artist_id}, '#{@title}', '#{@year}') RETURNING id;").first['id'].to_i
   end
 
   def ==(another_tape)
     @collection_id == another_tape.collection_id &&  @artist_id == another_tape.artist_id && @title == another_tape.title && @year == another_tape.year
   end
 
-#   def edit_name(new_name)
-#     DB.exec("UPDATE tapes SET name = '#{new_name}' WHERE id = #{@id};")
-#     @name = new_name
-#   end
-#
-#   def delete
-#     DB.exec("DELETE FROM tapes WHERE id = #{@id};")
-#   end
-#
+  def update_title(new_title)
+    DB.exec("UPDATE tapes SET title = '#{new_title}' WHERE id = #{@id};")
+    @title = new_title
+  end
+
+  def delete
+    DB.exec("DELETE FROM tapes WHERE id = #{@id};")
+  end
+
 end

@@ -1,11 +1,13 @@
-# require './lib/address_book'
+require 'pg'
+require 'pry'
 require './lib/tape'
 require './lib/artist'
 require './lib/collection'
 
+DB = PG.connect({:dbname => 'tape_organizer_psql_development'})
+
 def main_menu
   loop do
-    #Main menu block
     system "clear"
 
     puts "
@@ -37,7 +39,8 @@ def main_menu_selector(input)
   if input == '1'
     puts "Collection Name?"
     name = gets.chomp
-    newCollection = Collection.new(name)
+    attributes = {'name' => name}
+    newCollection = Collection.new(attributes)
     newCollection.save
     puts "**SAVED**"
   elsif input == '2'
@@ -74,19 +77,30 @@ def collection_editor(input)
   puts "Press 'm' to return to main menu"
   editing_choice = gets.chomp.to_i
   unless (editing_choice == 'm')
+    collection_id = Collection.all[input-1].id
     if editing_choice == 1
       puts "\nArtist?"
-      new_artist = gets.chomp
+      new_artist_name = gets.chomp
       puts "\nTitle?"
       new_title = gets.chomp
       puts "\nRelease year?"
       new_year = gets.chomp
-      Collection.all[input-1].add_tape(new_artist,new_title,new_year)
+      if Artist.exist? (new_artist_name)
+        artist_id = DB.exec("SELECT id FROM artists WHERE name = new_artist_name;").first['id']
+      else
+        new_artist = Artist.new({'name' => new_artist_name})
+        new_artist.save
+        artist_id = new_artist.id
+      end
+      new_tape = Tape.new({'collection_id' => collection_id, 'artist_id' => artist_id, 'title' => new_title, 'year' => new_year})
+      new_tape.save
       puts "**SAVED**"
       collection_editor(input)
 
     elsif editing_choice == 2
-      puts Collection.all[input-1].tapes_list
+      tapes = Collection.all[input-1].all_tapes_in_collection
+      puts tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.title}" }
+
       puts "Tape number?"
       choice = gets.chomp.to_i
       Collection.all[input-1].delete_tape(choice)
