@@ -28,6 +28,14 @@ describe 'Artist' do
     end
   end
 
+  describe ".exist?" do
+    it "returns true if the artist exists in the artist table" do
+      test_artist = Artist.new(ATTRIBUTES)
+      test_artist.save
+      expect(Artist.exist?('Nuatu')).to eq true
+    end
+  end
+
   describe "==" do
     it "sets two objects as equal if their values are equal" do
       test_artist = Artist.new(ATTRIBUTES)
@@ -38,11 +46,11 @@ describe 'Artist' do
     end
   end
 
-  describe "edit_name" do
-    it "edits artist name" do
+  describe "update_name" do
+    it "update artist name" do
       test_artist = Artist.new(ATTRIBUTES)
       test_artist.save
-      test_artist.edit_name("Mary")
+      test_artist.update_name("Mary")
       expect(test_artist.name).to eq "Mary"
     end
   end
