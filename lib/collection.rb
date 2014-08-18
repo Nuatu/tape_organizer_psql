@@ -1,5 +1,5 @@
-require 'set'
-
+# require 'set'
+#
 class Collection
 
   attr_accessor :name
@@ -19,6 +19,15 @@ class Collection
     output
   end
 
+  def self.exist? (new_name)
+    results = DB.exec("SELECT name FROM collections;")
+    results1 = []
+    results.each do |x|
+      results1 << x['name']
+    end
+    results1.include? new_name
+  end
+
   def save
     @id = DB.exec("INSERT INTO collections(name) VALUES ('#{@name}') RETURNING id;").first['id'].to_i
   end
@@ -27,7 +36,7 @@ class Collection
     @name == another_collection.name
   end
 
-  def edit_name(new_name)
+  def update_name(new_name)
     DB.exec("UPDATE collections SET name = '#{new_name}' WHERE id = #{@id};")
     @name = new_name
   end

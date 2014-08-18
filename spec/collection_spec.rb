@@ -28,6 +28,14 @@ describe 'Collection' do
     end
   end
 
+  describe ".exist?" do
+    it "returns true if the collections exists in the collection table" do
+      test_collection = Collection.new(ATTRIBUTES)
+      test_collection.save
+      expect(Collection.exist?('Nuatu')).to eq true
+    end
+  end
+
   describe "==" do
     it "sets two objects as equal if their values are equal" do
       test_collection = Collection.new(ATTRIBUTES)
@@ -38,11 +46,11 @@ describe 'Collection' do
     end
   end
 
-  describe "edit_name" do
-    it "edits collection name" do
+  describe "update_name" do
+    it "update collection name" do
       test_collection = Collection.new(ATTRIBUTES)
       test_collection.save
-      test_collection.edit_name("Mary")
+      test_collection.update_name("Mary")
       expect(test_collection.name).to eq "Mary"
     end
   end
