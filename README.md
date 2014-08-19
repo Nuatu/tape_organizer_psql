@@ -1,4 +1,4 @@
-Tape Organizer
+Tape Organizer - Postgre Style
 ==============
 
 by [Nuatu Tseggai] (https://github.com/nuatu) August 18, 2014
