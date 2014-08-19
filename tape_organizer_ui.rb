@@ -93,7 +93,7 @@ def collection_editor(input)
   puts "Press '3' to LIST all TAPES in this Collection"
   puts "Press '4' to LIST all ARTISTS"
   puts "Press '5' to SEARCH by ARTIST NAME"
-  puts "Press '6' to to SEARCH by TAPE NAME"
+  puts "Press '6' to to SEARCH by TAPE TITLE"
   puts "Press 'm' to return to main menu"
   editing_choice = gets.chomp.to_i
 
@@ -146,7 +146,11 @@ def collection_editor(input)
         collection_editor(input)
       else
       artists = Collection.all[input-1].artists
-      artists.each_with_index { |artist, index| puts "#{index + 1}. #{artist.name}" }
+      artists1 = []
+      artists.each_with_index { |artist, index| artists1 << artist.name }
+      artists1.uniq!
+      puts "\n"
+      artists1.each_with_index { |artist, index| puts "#{index + 1}. #{artist}" }
       collection_editor(input)
       end
     elsif editing_choice == 5
@@ -166,11 +170,11 @@ def collection_editor(input)
       puts "\nSorry, there are no artists or tapes in this collection"
       collection_editor(input)
       else
-      puts "\nTAPE to search for?"
-      artist = gets.chomp.upcase
-      artist_tapes = Collection.all[input-1].artist_search(artist)
+      puts "\nTAPE TITLE to search for?"
+      title = gets.chomp.upcase
+      title_tapes = Collection.all[input-1].title_search(title)
       puts "\n"
-      artist_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
+      title_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
       collection_editor(input)
       end
     end

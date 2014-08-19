@@ -76,4 +76,14 @@ class Collection
     end
     output
   end
+  def title_search(title)
+    output = []
+    results = DB.exec("SELECT tapes.* FROM
+                       artists JOIN tapes on (artists.id = tapes.artist_id)
+                       WHERE tapes.title = '#{title}';")
+    results.each do |result|
+      output << Tape.new(result)
+    end
+    output
+  end
 end
