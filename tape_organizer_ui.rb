@@ -57,8 +57,25 @@ def main_menu_selector(input)
       puts "\nExisting Collections:"
     end
     Collection.all.each_with_index { |collection, index| puts "#{index + 1}. #{collection.name}" }
-    puts "\nEnter a collection number to modify or press 'x' to go back to Main Menu"
-    input = gets.chomp.to_i
+    puts "\nWhat collection number you would like to manage?"
+    puts "Press 'D' to delete a collection"
+    puts "Press 'U' to update a collection name"
+    puts "Press 'X' to go back to the Main Menu"
+    input = gets.chomp
+    if input.downcase == 'd'
+      puts "\nCollection number to Delete?"
+      delete = gets.chomp.to_i
+      Collection.all[delete - 1].delete
+      puts "**DELETED**"
+    elsif input.downcase == 'u'
+      puts "\nCollection number to Update?"
+      collection = gets.chomp.to_i
+      puts "New Name?"
+      name = gets.chomp
+      Collection.all[collection - 1].update_name(name)
+      puts "**EDITED**"
+    end
+    input = input.to_i
     unless input == 0 or input > Collection.all.length
       collection_editor(input)
     end
@@ -73,11 +90,12 @@ def collection_editor(input)
   puts "Press '3' to LIST all TAPES in this Collection"
   puts "Press '4' to LIST all ARTISTS"
   puts "Press '5' to SEARCH by ARTIST"
-  puts "Press '6' to to SEARCH by ALBUM"
+  puts "Press '6' to to SEARCH by TAPE NAME"
   puts "Press 'm' to return to main menu"
   editing_choice = gets.chomp.to_i
   unless (editing_choice == 'm')
     collection_id = Collection.all[input-1].id
+    tapes = Collection.all[input-1].tapes
     if editing_choice == 1
       puts "\nArtist?"
       new_artist_name = gets.chomp
@@ -86,7 +104,7 @@ def collection_editor(input)
       puts "\nRelease year?"
       new_year = gets.chomp
       if Artist.exist? (new_artist_name)
-        artist_id = DB.exec("SELECT id FROM artists WHERE name = new_artist_name;").first['id']
+        artist_id = DB.exec("SELECT id FROM artists WHERE name = '#{new_artist_name}';").first['id']
       else
         new_artist = Artist.new({'name' => new_artist_name})
         new_artist.save
@@ -98,20 +116,33 @@ def collection_editor(input)
       collection_editor(input)
 
     elsif editing_choice == 2
-      tapes = Collection.all[input-1].all_tapes_in_collection
-      puts tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.title}" }
-
-      puts "Tape number?"
-      choice = gets.chomp.to_i
-      Collection.all[input-1].delete_tape(choice)
-      collection_editor(input)
-
+      if tapes.length ==0
+        puts "\nSorry, there are no tapes in this collection"
+        collection_editor(input)
+      else
+        puts "\nExisting Tapes:"
+        tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
+        puts "\nTape number to delete?"
+        choice = gets.chomp.to_i
+        tapes[choice-1].delete
+        puts "**DELETED**"
+        collection_editor(input)
+      end
     elsif editing_choice == 3
-      puts Collection.all[input-1].tapes_list
-      collection_editor(input)
+      if tapes.length ==0
+        puts "\nSorry, there are no tapes in this collection"
+        collection_editor(input)
+      else
+        puts "\nExisting Tapes:"
+        tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
+
+        collection_editor(input)
+      end
 
     elsif editing_choice == 4
-      puts Collection.all[input-1].artist_list
+      artists = Collection.all[input-1].artists
+      artists.each_with_index { |artist, index| puts "#{index + 1}. #{artist.name}" }
+
       collection_editor(input)
     #
     elsif editing_choice == 5
@@ -120,7 +151,7 @@ def collection_editor(input)
       collection_editor(input)
 
     elsif editing_choice == 6
-      puts "ALBUM to search for?"
+      puts "TAPE NAME to search for?"
       puts Collection.all[input-1].album_search(gets.chomp)
       collection_editor(input)
     end

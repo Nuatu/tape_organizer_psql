@@ -37,4 +37,9 @@ class Tape
     DB.exec("DELETE FROM tapes WHERE id = #{@id};")
   end
 
+  def artist
+    result = DB.exec("SELECT name FROM artists WHERE id = '#{self.artist_id}';").first
+    output = Artist.new(result)
+  end
+
 end

@@ -1,9 +1,9 @@
 require 'rspec'
 require 'pg'
+require 'pry'
 require 'collection'
 require 'tape'
 require 'artist'
-require 'pry'
 
 ATTRIBUTES = {'name' => 'Nuatu', 'title' => 'Notorious', 'year' => '2012', 'collection_id' => '1', 'artist_id' => '1'}
 

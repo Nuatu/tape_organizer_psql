@@ -45,11 +45,23 @@ class Collection
     DB.exec("DELETE FROM collections WHERE id = #{@id};")
   end
 
-  def all_tapes_in_collection
+   def tapes
     output = []
     results = DB.exec("SELECT * FROM tapes WHERE collection_id = @id;")
     results.each do |result|
       output << Collection.new(result)
+    end
+    output
+  end
+
+  def artists
+    output = []
+    results = DB.exec("SELECT artists.* FROM
+                       collections JOIN tapes on (collections.id = tapes.collection_id)
+                       JOIN artists on (tapes.artist_id = artists.id)
+                        WHERE collections.id = #{@id};")
+    results.each do |result|
+      output << Artist.new(result)
     end
     output
   end

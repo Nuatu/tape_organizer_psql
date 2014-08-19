@@ -57,10 +57,25 @@ describe 'Collection' do
 
   describe "delete" do
     it "deletes a collection from the database" do
-      test_category = Collection.new(ATTRIBUTES)
-      test_category.save
-      test_category.delete
+      test_collection = Collection.new(ATTRIBUTES)
+      test_collection.save
+      test_collection.delete
       expect(Collection.all).to eq []
+    end
+  end
+
+   describe "artists" do
+    it "returns all artist objects associated with collection object" do
+      test_collection = Collection.new(ATTRIBUTES); test_collection.save
+      test_artist = Artist.new(ATTRIBUTES); test_artist.save
+      test_artist1 = Artist.new(ATTRIBUTES); test_artist1.save
+      test_artist2 = Artist.new(ATTRIBUTES); test_artist2.save
+      test_artist1.update_name("Mary")
+      test_artist2.update_name("Andrew")
+      test_tape = Tape.new('title' => 'AAA', 'year' => '2012', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist.id.to_s); test_tape.save
+      test_tape1 = Tape.new('title' => 'BBB', 'year' => '2013', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist1.id.to_s); test_tape1.save
+      test_tape2 = Tape.new('title' => 'CCC', 'year' => '2014', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist2.id.to_s); test_tape2.save
+      expect(test_collection.artists).to eq [test_artist, test_artist1, test_artist2]
     end
   end
 end

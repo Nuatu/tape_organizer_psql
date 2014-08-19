@@ -40,19 +40,31 @@ describe 'Tape' do
 
   describe "update_title" do
     it "update tape name" do
-      test_artist = Tape.new(ATTRIBUTES)
-      test_artist.save
-      test_artist.update_title("Mary")
-      expect(test_artist.title).to eq "Mary"
+      test_tape = Tape.new(ATTRIBUTES)
+      test_tape.save
+      test_tape.update_title("Mary")
+      expect(test_tape.title).to eq "Mary"
     end
   end
 
   describe "delete" do
     it "deletes a tape from the database" do
-      test_artist = Tape.new(ATTRIBUTES)
-      test_artist.save
-      test_artist.delete
+      test_tape = Tape.new(ATTRIBUTES)
+      test_tape.save
+      test_tape.delete
       expect(Tape.all).to eq []
     end
   end
+
+  describe "artist" do
+    it "returns artist object associated with tape object" do
+      test_artist = Artist.new(ATTRIBUTES)
+      test_artist.save
+      test_tape = Tape.new(ATTRIBUTES)
+      test_tape.artist_id = test_artist.id
+      test_tape.save
+      expect(test_tape.artist).to eq test_artist
+    end
+  end
+
 end
