@@ -10,6 +10,11 @@ Command line Ruby / Postgres app for managing cassete tape collections.
 <li>users can create and manage multiple collections.</li>
 
 <li>users can create and search through tapes in each collection.</li>
+
+<li>users can search by artist.</li>
+
+<li>users can search by tape title.</li>
+
 </ul>
 
 ![Alt text](https://github.com/Nuatu/tape_organizer_psql/blob/master/db_schema.png)
