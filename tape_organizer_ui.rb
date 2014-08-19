@@ -12,6 +12,7 @@ def main_menu
 
     puts "
     T A P E  C O L L E C T I O N
+    P O S T G R E  <>  S T Y L E
     ____________________________
   /|............................|
  | |:           1980's         :|
@@ -149,7 +150,7 @@ def collection_editor(input)
       artists1 = []
       artists.each_with_index { |artist, index| artists1 << artist.name }
       artists1.uniq!
-      puts "\n"
+      puts "\nExisting Artists:"
       artists1.each_with_index { |artist, index| puts "#{index + 1}. #{artist}" }
       collection_editor(input)
       end
@@ -161,7 +162,7 @@ def collection_editor(input)
       puts "\nARTIST to search for?"
       artist = gets.chomp.upcase
       artist_tapes = Collection.all[input-1].artist_search(artist)
-      puts "\n"
+      puts "\nTapes by this Artist:"
       artist_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
       collection_editor(input)
       end
@@ -173,7 +174,7 @@ def collection_editor(input)
       puts "\nTAPE TITLE to search for?"
       title = gets.chomp.upcase
       title_tapes = Collection.all[input-1].title_search(title)
-      puts "\n"
+      puts "\nTapes with this Title:"
       title_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
       collection_editor(input)
       end
