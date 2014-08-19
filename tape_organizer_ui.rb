@@ -38,11 +38,14 @@ end
 def main_menu_selector(input)
   if input == '1'
     puts "Collection Name?"
-    name = gets.chomp
-    attributes = {'name' => name}
-    newCollection = Collection.new(attributes)
+    new_collection_name = gets.chomp.upcase
+    if Collection.exist? (new_collection_name)
+      puts "\nSorry, that collection already exists"
+    else
+    newCollection = Collection.new({'name' => new_collection_name})
     newCollection.save
     puts "**SAVED**"
+    end
   elsif input == '2'
     if Collection.all.length == 0
       puts "\nSorry, you have no collections"
@@ -89,18 +92,19 @@ def collection_editor(input)
   puts "Press '2' to DELETE a TAPE"
   puts "Press '3' to LIST all TAPES in this Collection"
   puts "Press '4' to LIST all ARTISTS"
-  puts "Press '5' to SEARCH by ARTIST"
+  puts "Press '5' to SEARCH by ARTIST NAME"
   puts "Press '6' to to SEARCH by TAPE NAME"
   puts "Press 'm' to return to main menu"
   editing_choice = gets.chomp.to_i
+
   unless (editing_choice == 'm')
     collection_id = Collection.all[input-1].id
     tapes = Collection.all[input-1].tapes
     if editing_choice == 1
       puts "\nArtist?"
-      new_artist_name = gets.chomp
+      new_artist_name = gets.chomp.upcase
       puts "\nTitle?"
-      new_title = gets.chomp
+      new_title = gets.chomp.upcase
       puts "\nRelease year?"
       new_year = gets.chomp
       if Artist.exist? (new_artist_name)
@@ -114,7 +118,6 @@ def collection_editor(input)
       new_tape.save
       puts "**SAVED**"
       collection_editor(input)
-
     elsif editing_choice == 2
       if tapes.length ==0
         puts "\nSorry, there are no tapes in this collection"
@@ -135,28 +138,42 @@ def collection_editor(input)
       else
         puts "\nExisting Tapes:"
         tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
-
         collection_editor(input)
       end
-
     elsif editing_choice == 4
+      if tapes.length ==0
+        puts "\nSorry, there are no artists or tapes in this collection"
+        collection_editor(input)
+      else
       artists = Collection.all[input-1].artists
       artists.each_with_index { |artist, index| puts "#{index + 1}. #{artist.name}" }
-
       collection_editor(input)
-    #
+      end
     elsif editing_choice == 5
-      puts "ARTIST to search for?"
-      puts Collection.all[input-1].artist_search(gets.chomp)
+      if tapes.length ==0
+      puts "\nSorry, there are no artists or tapes in this collection"
       collection_editor(input)
-
+      else
+      puts "\nARTIST to search for?"
+      artist = gets.chomp.upcase
+      artist_tapes = Collection.all[input-1].artist_search(artist)
+      puts "\n"
+      artist_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
+      collection_editor(input)
+      end
     elsif editing_choice == 6
-      puts "TAPE NAME to search for?"
-      puts Collection.all[input-1].album_search(gets.chomp)
+      if tapes.length ==0
+      puts "\nSorry, there are no artists or tapes in this collection"
       collection_editor(input)
+      else
+      puts "\nTAPE to search for?"
+      artist = gets.chomp.upcase
+      artist_tapes = Collection.all[input-1].artist_search(artist)
+      puts "\n"
+      artist_tapes.each_with_index { |tape, index| puts "#{index + 1}. #{tape.artist.name} | #{tape.title} | #{tape.year}" }
+      collection_editor(input)
+      end
     end
   end
-
-
 end
 main_menu

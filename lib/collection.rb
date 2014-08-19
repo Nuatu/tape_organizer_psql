@@ -50,7 +50,7 @@ class Collection
     results = DB.exec("SELECT artists.* FROM
                        collections JOIN tapes on (collections.id = tapes.collection_id)
                        JOIN artists on (tapes.artist_id = artists.id)
-                        WHERE collections.id = #{@id};")
+                       WHERE collections.id = #{@id};")
     results.each do |result|
       output << Artist.new(result)
     end
@@ -66,4 +66,14 @@ class Collection
     output
   end
 
+  def artist_search(artist_name)
+    output = []
+    results = DB.exec("SELECT tapes.* FROM
+                       artists JOIN tapes on (artists.id = tapes.artist_id)
+                       WHERE artists.name = '#{artist_name}';")
+    results.each do |result|
+      output << Tape.new(result)
+    end
+    output
+  end
 end

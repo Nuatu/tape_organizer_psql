@@ -90,9 +90,18 @@ describe 'Collection' do
       test_tape = Tape.new('title' => 'AAA', 'year' => '2012', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist.id.to_s); test_tape.save
       test_tape1 = Tape.new('title' => 'BBB', 'year' => '2013', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist1.id.to_s); test_tape1.save
       test_tape2 = Tape.new('title' => 'CCC', 'year' => '2014', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist2.id.to_s); test_tape2.save
-      binding.pry
       expect(test_collection.tapes).to eq [test_tape, test_tape1, test_tape2]
     end
   end
 
+  describe "artist_search" do
+    it "returns all tape objects associated with an artist object associated with a collection object" do
+      test_collection = Collection.new(ATTRIBUTES); test_collection.save
+      test_artist = Artist.new(ATTRIBUTES); test_artist.save
+      test_tape = Tape.new('title' => 'AAA', 'year' => '2012', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist.id.to_s); test_tape.save
+      test_tape1 = Tape.new('title' => 'BBB', 'year' => '2013', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist.id.to_s); test_tape1.save
+      test_tape2 = Tape.new('title' => 'CCC', 'year' => '2014', 'collection_id' => test_collection.id.to_s, 'artist_id' => test_artist.id.to_s); test_tape2.save
+      expect(test_collection.artist_search('Nuatu')).to eq [test_tape, test_tape1, test_tape2]
+    end
+  end
 end
